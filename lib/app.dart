@@ -109,7 +109,7 @@ class FlutterFreedomApp extends StatelessWidget {
           ),
           textStyle: TextStyle(
             inherit: false,
-            fontFamily: isRtl ? persianFont : 'Segoe UI',
+            fontFamily: isRtl ? persianFont : 'IranSans',
             fontWeight: FontWeight.w600,
             fontSize: 14,
             color: Colors.black,
@@ -128,7 +128,7 @@ class FlutterFreedomApp extends StatelessWidget {
           ),
           textStyle: TextStyle(
             inherit: false,
-            fontFamily: isRtl ? persianFont : 'Segoe UI',
+            fontFamily: isRtl ? persianFont : 'IranSans',
             fontWeight: FontWeight.w600,
             fontSize: 14,
             color: const Color(0xFF54C5F8),
@@ -143,7 +143,7 @@ class FlutterFreedomApp extends StatelessWidget {
         labelStyle: TextStyle(
           inherit: false,
           fontSize: 13,
-          fontFamily: isRtl ? persianFont : 'Segoe UI',
+          fontFamily: isRtl ? persianFont : 'IranSans',
           color: const Color(0xFFE0E0E0),
           fontWeight: FontWeight.w400,
           decoration: TextDecoration.none,

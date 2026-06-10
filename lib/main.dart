@@ -18,11 +18,11 @@ void main() async {
   await windowManager.ensureInitialized();
   const windowOptions = WindowOptions(
     size: Size(960, 720),
-    minimumSize: Size(800, 600),
+    minimumSize: Size(800, 500),
     center: true,
     title: 'Flutter Freedom',
-    backgroundColor: Colors.transparent,
-    titleBarStyle: TitleBarStyle.normal,
+    backgroundColor: Color(0xFF0F2A9E),
+    titleBarStyle: TitleBarStyle.hidden,
   );
   await windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();

@@ -4,6 +4,11 @@ import 'package:flutter_freedom/generated/app_localizations.dart';
 import '../../constants/links.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+const _kDeepBlue    = Color(0xFF0F2A9E);
+const _kAccentBlue  = Color(0xFF0F2A9E);
+const _kBorder      = Color(0xFFCDD5FF);
+const _kSurface     = Color(0xFFF4F6FF);
+
 class HelpfulLinksSection extends StatelessWidget {
   const HelpfulLinksSection({super.key});
 
@@ -12,10 +17,10 @@ class HelpfulLinksSection extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Wrap(
-      spacing: 12,
-      runSpacing: 12,
+      spacing: 8,
+      runSpacing: 8,
       children: helpfulLinks.map((link) {
-        return _LinkChip(
+        return _FluentLinkChip(
           label: _resolveLabel(link.labelKey, l10n),
           url: link.url,
         );
@@ -49,26 +54,58 @@ class HelpfulLinksSection extends StatelessWidget {
   }
 }
 
-class _LinkChip extends StatelessWidget {
+class _FluentLinkChip extends StatefulWidget {
   final String label;
   final String url;
 
-  const _LinkChip({required this.label, required this.url});
+  const _FluentLinkChip({required this.label, required this.url});
+
+  @override
+  State<_FluentLinkChip> createState() => _FluentLinkChipState();
+}
+
+class _FluentLinkChipState extends State<_FluentLinkChip> {
+  bool _hovered = false;
 
   @override
   Widget build(BuildContext context) {
-    return ActionChip(
-      avatar: const FaIcon(
-        FontAwesomeIcons.arrowUpFromBracket,
-        size: 14,
-        color: Color(0xFF54C5F8),
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: GestureDetector(
+        onTap: () => launchUrl(Uri.parse(widget.url)),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 100),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          decoration: BoxDecoration(
+            color: _hovered ? Colors.white : _kSurface,
+            border: Border.all(
+              color: _hovered ? _kAccentBlue.withOpacity(0.6) : _kBorder,
+            ),
+            borderRadius: BorderRadius.circular(3),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              FaIcon(
+                FontAwesomeIcons.arrowUpRightFromSquare,
+                size: 11,
+                color: _hovered ? _kAccentBlue : const Color(0xFF7090B0),
+              ),
+              const SizedBox(width: 7),
+              Text(
+                widget.label,
+                style: TextStyle(
+                  color: _hovered ? _kAccentBlue : const Color(0xFF3A5070),
+                  fontSize: 12,
+                  fontFamily: 'IranSans',
+                  fontWeight: _hovered ? FontWeight.w500 : FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
-      label: Text(label),
-      labelStyle: const TextStyle(fontSize: 13, color: Color(0xFFB0B0C0)),
-      backgroundColor: const Color(0xFF1E1E30),
-      side: const BorderSide(color: Color(0xFF2A2A40)),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      onPressed: () => launchUrl(Uri.parse(url)),
     );
   }
 }
